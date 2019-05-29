@@ -1,0 +1,35 @@
+From bb4f2aaeaf2206397900ac5fdbf2960652a7de59 Mon Sep 17 00:00:00 2001
+From: Hongzhan Chen <hongzhan.chen@intel.com>
+Date: Wed, 29 May 2019 02:02:07 +0000
+Subject: [PATCH] Stateless
+
+---
+ flink-dist/src/main/flink-bin/bin/config.sh | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/flink-dist/src/main/flink-bin/bin/config.sh b/flink-dist/src/main/flink-bin/bin/config.sh
+index 1d38e2a..87f0c33 100755
+--- a/flink-dist/src/main/flink-bin/bin/config.sh
++++ b/flink-dist/src/main/flink-bin/bin/config.sh
+@@ -311,9 +311,16 @@ export FLINK_OPT_DIR
+ # The above lib path is used by the shell script to retrieve jars in a
+ # directory, so it needs to be unmangled.
+ FLINK_ROOT_DIR_MANGLED=`manglePath "$FLINK_ROOT_DIR"`
+-if [ -z "$FLINK_CONF_DIR" ]; then FLINK_CONF_DIR=$FLINK_ROOT_DIR_MANGLED/conf; fi
++if [ -z "$FLINK_CONF_DIR" ]; then
++  if [[ -e "/etc/flink/flink-conf.yaml" ]]; then
++    FLINK_CONF_DIR="/etc/flink"
++  else
++    FLINK_CONF_DIR="/usr/share/defaults/flink/"
++  fi
++fi
++
+ FLINK_BIN_DIR=$FLINK_ROOT_DIR_MANGLED/bin
+-DEFAULT_FLINK_LOG_DIR=$FLINK_ROOT_DIR_MANGLED/log
++DEFAULT_FLINK_LOG_DIR=/var/log/flink
+ FLINK_CONF_FILE="flink-conf.yaml"
+ YAML_CONF=${FLINK_CONF_DIR}/${FLINK_CONF_FILE}
+ 
+-- 
+2.19.1
+

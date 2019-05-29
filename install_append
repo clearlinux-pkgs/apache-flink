@@ -1,0 +1,13 @@
+rm -rf %{buildroot}
+
+mkdir -p %{buildroot}/usr/share/doc/flink
+cp -r flink-dist/target/flink-*-bin/flink-* %{buildroot}/usr/share/flink
+mv %{buildroot}/usr/share/flink/LICENSE %{buildroot}/usr/share/doc/flink/
+mv %{buildroot}/usr/share/flink/NOTICE %{buildroot}/usr/share/doc/flink/
+mv %{buildroot}/usr/share/flink/README.txt %{buildroot}/usr/share/doc/flink/
+mv %{buildroot}/usr/share/flink/licenses %{buildroot}/usr/share/doc/flink/
+
+# Create default configuration dir
+mkdir -p %{buildroot}/usr/share/defaults/flink
+cp  %{buildroot}/usr/share/flink/conf/* %{buildroot}/usr/share/defaults/flink/
+
