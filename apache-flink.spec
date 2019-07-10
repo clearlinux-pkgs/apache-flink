@@ -4,20 +4,14 @@
 #
 Name     : apache-flink
 Version  : 1.7.2
-Release  : 1
+Release  : 2
 URL      : http://github.com/apache/flink/archive/release-1.7.2.tar.gz
 Source0  : http://github.com/apache/flink/archive/release-1.7.2.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CDDL-1.0 CDDL-1.1 MIT MPL-1.1 Python-2.0
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC0-1.0 CDDL-1.0 CDDL-1.1 LGPL-2.1 MIT MPL-1.1 OFL-1.1 Python-2.0
 Requires: apache-flink-data = %{version}-%{release}
-Requires: apache-maven
-Requires: cmake
-Requires: flink-dep
 Requires: openjdk
-Requires: openjdk-dev
-Requires: openssl-dev
-Requires: zlib-dev
 BuildRequires : apache-maven
 BuildRequires : buildreq-distutils3
 BuildRequires : cmake
@@ -60,16 +54,161 @@ cp -r /usr/share/apache-flink/.m2 %{buildroot}/.m2
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1559099127
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562724075
 export GCC_IGNORE_WERROR=1
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags} || /usr/bin/mvn package -o -Pnative -Pdist -DskipTests -Dtar -Dmaven.repo.local=%{buildroot}/.m2/repository
 
 
 %install
-export SOURCE_DATE_EPOCH=1559099127
+export SOURCE_DATE_EPOCH=1562724075
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/apache-flink
+cp LICENSE %{buildroot}/usr/share/package-licenses/apache-flink/LICENSE
+cp docs/fig/LICENSE.txt %{buildroot}/usr/share/package-licenses/apache-flink/docs_fig_LICENSE.txt
+cp docs/page/img/LICENSE.txt %{buildroot}/usr/share/package-licenses/apache-flink/docs_page_img_LICENSE.txt
+cp flink-connectors/flink-connector-cassandra/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-cassandra_src_main_resources_META-INF_NOTICE
+cp flink-connectors/flink-connector-elasticsearch/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch_src_main_resources_META-INF_NOTICE
+cp flink-connectors/flink-connector-elasticsearch/src/main/resources/META-INF/licenses/LICENSE.antlr %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch_src_main_resources_META-INF_licenses_LICENSE.antlr
+cp flink-connectors/flink-connector-elasticsearch2/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch2_src_main_resources_META-INF_NOTICE
+cp flink-connectors/flink-connector-elasticsearch2/src/main/resources/META-INF/licenses/LICENSE.hdrhistogram %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch2_src_main_resources_META-INF_licenses_LICENSE.hdrhistogram
+cp flink-connectors/flink-connector-elasticsearch2/src/main/resources/META-INF/licenses/LICENSE.jsr166e %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch2_src_main_resources_META-INF_licenses_LICENSE.jsr166e
+cp flink-connectors/flink-connector-elasticsearch2/src/main/resources/META-INF/licenses/LICENSE.jzlib %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch2_src_main_resources_META-INF_licenses_LICENSE.jzlib
+cp flink-connectors/flink-connector-elasticsearch2/src/main/resources/META-INF/licenses/LICENSE.webbit %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch2_src_main_resources_META-INF_licenses_LICENSE.webbit
+cp flink-connectors/flink-connector-elasticsearch5/src/main/resources/META-INF/licenses/LICENSE.hdrhistogram %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch5_src_main_resources_META-INF_licenses_LICENSE.hdrhistogram
+cp flink-connectors/flink-connector-elasticsearch5/src/main/resources/META-INF/licenses/LICENSE.joptsimple %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch5_src_main_resources_META-INF_licenses_LICENSE.joptsimple
+cp flink-connectors/flink-connector-elasticsearch5/src/main/resources/META-INF/licenses/LICENSE.jzlib %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch5_src_main_resources_META-INF_licenses_LICENSE.jzlib
+cp flink-connectors/flink-connector-elasticsearch5/src/main/resources/META-INF/licenses/LICENSE.webbit %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-elasticsearch5_src_main_resources_META-INF_licenses_LICENSE.webbit
+cp flink-connectors/flink-connector-kinesis/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-kinesis_src_main_resources_META-INF_NOTICE
+cp flink-connectors/flink-connector-kinesis/src/main/resources/META-INF/licenses/LICENSE.protobuf %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-kinesis_src_main_resources_META-INF_licenses_LICENSE.protobuf
+cp flink-connectors/flink-connector-twitter/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-connectors_flink-connector-twitter_src_main_resources_META-INF_NOTICE
+cp flink-core/src/main/java/org/apache/flink/api/common/functions/util/CopyingIterator.java %{buildroot}/usr/share/package-licenses/apache-flink/flink-core_src_main_java_org_apache_flink_api_common_functions_util_CopyingIterator.java
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.grizzled-slf4j %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.grizzled-slf4j
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.kryo %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.kryo
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.minlog %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.minlog
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.scala %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.scala
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.scopt %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.scopt
+cp flink-dist/src/main/resources/META-INF/licenses/LICENSE.slf4j-api %{buildroot}/usr/share/package-licenses/apache-flink/flink-dist_src_main_resources_META-INF_licenses_LICENSE.slf4j-api
+cp flink-examples/flink-examples-build-helper/flink-examples-streaming-state-machine/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-examples_flink-examples-build-helper_flink-examples-streaming-state-machine_src_main_resources_META-INF_NOTICE
+cp flink-filesystems/flink-fs-hadoop-shaded/src/main/resources/META-INF/licenses/LICENSE-re2j %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-fs-hadoop-shaded_src_main_resources_META-INF_licenses_LICENSE-re2j
+cp flink-filesystems/flink-fs-hadoop-shaded/src/main/resources/META-INF/licenses/LICENSE-stax2api %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-fs-hadoop-shaded_src_main_resources_META-INF_licenses_LICENSE-stax2api
+cp flink-filesystems/flink-s3-fs-base/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-s3-fs-base_src_main_resources_META-INF_NOTICE
+cp flink-filesystems/flink-s3-fs-presto/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-s3-fs-presto_src_main_resources_META-INF_NOTICE
+cp flink-filesystems/flink-s3-fs-presto/src/main/resources/META-INF/licenses/LICENSE-hdrhistogram %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-s3-fs-presto_src_main_resources_META-INF_licenses_LICENSE-hdrhistogram
+cp flink-filesystems/flink-swift-fs-hadoop/src/main/resources/META-INF/licenses/LICENSE-protobuf %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-swift-fs-hadoop_src_main_resources_META-INF_licenses_LICENSE-protobuf
+cp flink-filesystems/flink-swift-fs-hadoop/src/main/resources/META-INF/licenses/LICENSE-xmlenc %{buildroot}/usr/share/package-licenses/apache-flink/flink-filesystems_flink-swift-fs-hadoop_src_main_resources_META-INF_licenses_LICENSE-xmlenc
+cp flink-formats/flink-avro-confluent-registry/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-formats_flink-avro-confluent-registry_src_main_resources_META-INF_NOTICE
+cp flink-libraries/flink-sql-client/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-sql-client_src_main_resources_META-INF_NOTICE
+cp flink-libraries/flink-sql-client/src/main/resources/META-INF/licenses/LICENSE.jline %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-sql-client_src_main_resources_META-INF_licenses_LICENSE.jline
+cp flink-libraries/flink-streaming-python/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-streaming-python_src_main_resources_META-INF_NOTICE
+cp flink-libraries/flink-streaming-python/src/main/resources/META-INF/licenses/LICENSE.jython %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-streaming-python_src_main_resources_META-INF_licenses_LICENSE.jython
+cp flink-libraries/flink-table/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-table_src_main_resources_META-INF_NOTICE
+cp flink-libraries/flink-table/src/main/resources/META-INF/licenses/LICENSE.janino %{buildroot}/usr/share/package-licenses/apache-flink/flink-libraries_flink-table_src_main_resources_META-INF_licenses_LICENSE.janino
+cp flink-mesos/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-mesos_src_main_resources_META-INF_NOTICE
+cp flink-mesos/src/main/resources/META-INF/licenses/LICENSE.protobuf %{buildroot}/usr/share/package-licenses/apache-flink/flink-mesos_src_main_resources_META-INF_licenses_LICENSE.protobuf
+cp flink-metrics/flink-metrics-datadog/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-metrics_flink-metrics-datadog_src_main_resources_META-INF_NOTICE
+cp flink-metrics/flink-metrics-graphite/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-metrics_flink-metrics-graphite_src_main_resources_META-INF_NOTICE
+cp flink-metrics/flink-metrics-prometheus/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-metrics_flink-metrics-prometheus_src_main_resources_META-INF_NOTICE
+cp flink-runtime-web/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_NOTICE
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.angular %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.angular
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.angular-drag-and-drop-list %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.angular-drag-and-drop-list
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.angular-moment %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.angular-moment
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.angular-ui-router %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.angular-ui-router
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.bootstrap %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.bootstrap
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.d3 %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.d3
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.dagre %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.dagre
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.dagre-d3 %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.dagre-d3
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.ev-emitter %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.ev-emitter
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.font-awesome %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.font-awesome
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.graphlib %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.graphlib
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.imagesloaded %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.imagesloaded
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.jquery %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.jquery
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.moment %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.moment
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.moment-duration-format %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.moment-duration-format
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.qtip2 %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.qtip2
+cp flink-runtime-web/src/main/resources/META-INF/licenses/LICENSE.split %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime-web_src_main_resources_META-INF_licenses_LICENSE.split
+cp flink-runtime/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime_src_main_resources_META-INF_NOTICE
+cp flink-runtime/src/main/resources/META-INF/licenses/LICENSE.jzlib %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime_src_main_resources_META-INF_licenses_LICENSE.jzlib
+cp flink-runtime/src/main/resources/META-INF/licenses/LICENSE.webbit %{buildroot}/usr/share/package-licenses/apache-flink/flink-runtime_src_main_resources_META-INF_licenses_LICENSE.webbit
+cp flink-shaded-curator/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-curator_src_main_resources_META-INF_NOTICE
+cp flink-shaded-hadoop/flink-shaded-hadoop2-uber/src/main/resources/META-INF/licenses/LICENSE.cddlv1.0 %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2-uber_src_main_resources_META-INF_licenses_LICENSE.cddlv1.0
+cp flink-shaded-hadoop/flink-shaded-hadoop2-uber/src/main/resources/META-INF/licenses/LICENSE.jsch %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2-uber_src_main_resources_META-INF_licenses_LICENSE.jsch
+cp flink-shaded-hadoop/flink-shaded-hadoop2-uber/src/main/resources/META-INF/licenses/LICENSE.paranamer %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2-uber_src_main_resources_META-INF_licenses_LICENSE.paranamer
+cp flink-shaded-hadoop/flink-shaded-hadoop2-uber/src/main/resources/META-INF/licenses/LICENSE.xmlenc %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2-uber_src_main_resources_META-INF_licenses_LICENSE.xmlenc
+cp flink-shaded-hadoop/flink-shaded-hadoop2/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2_src_main_resources_META-INF_NOTICE
+cp flink-shaded-hadoop/flink-shaded-hadoop2/src/main/resources/META-INF/licenses/LICENSE.protobuf %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-hadoop2_src_main_resources_META-INF_licenses_LICENSE.protobuf
+cp flink-shaded-hadoop/flink-shaded-yarn-tests/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-yarn-tests_src_main_resources_META-INF_NOTICE
+cp flink-shaded-hadoop/flink-shaded-yarn-tests/src/main/resources/META-INF/licenses/LICENSE.asm %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-yarn-tests_src_main_resources_META-INF_licenses_LICENSE.asm
+cp flink-shaded-hadoop/flink-shaded-yarn-tests/src/main/resources/META-INF/licenses/LICENSE.protobuf %{buildroot}/usr/share/package-licenses/apache-flink/flink-shaded-hadoop_flink-shaded-yarn-tests_src_main_resources_META-INF_licenses_LICENSE.protobuf
+cp flink-test-utils-parent/flink-test-utils/src/main/resources/META-INF/NOTICE %{buildroot}/usr/share/package-licenses/apache-flink/flink-test-utils-parent_flink-test-utils_src_main_resources_META-INF_NOTICE
+cp flink-test-utils-parent/flink-test-utils/src/main/resources/META-INF/licenses/LICENSE.jzlib %{buildroot}/usr/share/package-licenses/apache-flink/flink-test-utils-parent_flink-test-utils_src_main_resources_META-INF_licenses_LICENSE.jzlib
+cp flink-test-utils-parent/flink-test-utils/src/main/resources/META-INF/licenses/LICENSE.webbit %{buildroot}/usr/share/package-licenses/apache-flink/flink-test-utils-parent_flink-test-utils_src_main_resources_META-INF_licenses_LICENSE.webbit
+cp licenses-binary/LICENSE-hdrhistogram %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE-hdrhistogram
+cp licenses-binary/LICENSE-protobuf %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE-protobuf
+cp licenses-binary/LICENSE-re2j %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE-re2j
+cp licenses-binary/LICENSE-stax2api %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE-stax2api
+cp licenses-binary/LICENSE-xmlenc %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE-xmlenc
+cp licenses-binary/LICENSE.angular %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.angular
+cp licenses-binary/LICENSE.angular-drag-and-drop-list %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.angular-drag-and-drop-list
+cp licenses-binary/LICENSE.angular-moment %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.angular-moment
+cp licenses-binary/LICENSE.angular-ui-router %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.angular-ui-router
+cp licenses-binary/LICENSE.arpack_combined_all %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.arpack_combined_all
+cp licenses-binary/LICENSE.asm.txt %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.asm.txt
+cp licenses-binary/LICENSE.bootstrap %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.bootstrap
+cp licenses-binary/LICENSE.cddlv1.0 %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.cddlv1.0
+cp licenses-binary/LICENSE.core %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.core
+cp licenses-binary/LICENSE.d3 %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.d3
+cp licenses-binary/LICENSE.dagre %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.dagre
+cp licenses-binary/LICENSE.dagre-d3 %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.dagre-d3
+cp licenses-binary/LICENSE.ev-emitter %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.ev-emitter
+cp licenses-binary/LICENSE.font-awesome %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.font-awesome
+cp licenses-binary/LICENSE.graphlib %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.graphlib
+cp licenses-binary/LICENSE.grizzled-slf4j %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.grizzled-slf4j
+cp licenses-binary/LICENSE.imagesloaded %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.imagesloaded
+cp licenses-binary/LICENSE.janino %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.janino
+cp licenses-binary/LICENSE.jline %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jline
+cp licenses-binary/LICENSE.jquery %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jquery
+cp licenses-binary/LICENSE.jsch %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jsch
+cp licenses-binary/LICENSE.jtransforms %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jtransforms
+cp licenses-binary/LICENSE.jython %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jython
+cp licenses-binary/LICENSE.jzlib %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.jzlib
+cp licenses-binary/LICENSE.kryo %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.kryo
+cp licenses-binary/LICENSE.machinist %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.machinist
+cp licenses-binary/LICENSE.minlog %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.minlog
+cp licenses-binary/LICENSE.moment %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.moment
+cp licenses-binary/LICENSE.moment-duration-format %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.moment-duration-format
+cp licenses-binary/LICENSE.paranamer %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.paranamer
+cp licenses-binary/LICENSE.protobuf %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.protobuf
+cp licenses-binary/LICENSE.qtip2 %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.qtip2
+cp licenses-binary/LICENSE.scala %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.scala
+cp licenses-binary/LICENSE.scopt %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.scopt
+cp licenses-binary/LICENSE.slf4j %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.slf4j
+cp licenses-binary/LICENSE.slf4j-api %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.slf4j-api
+cp licenses-binary/LICENSE.spire %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.spire
+cp licenses-binary/LICENSE.split %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.split
+cp licenses-binary/LICENSE.webbit %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.webbit
+cp licenses-binary/LICENSE.xmlenc %{buildroot}/usr/share/package-licenses/apache-flink/licenses-binary_LICENSE.xmlenc
+cp licenses/LICENSE.angular %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.angular
+cp licenses/LICENSE.angular-drag-and-drop-list %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.angular-drag-and-drop-list
+cp licenses/LICENSE.angular-moment %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.angular-moment
+cp licenses/LICENSE.angular-ui-router %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.angular-ui-router
+cp licenses/LICENSE.bootstrap %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.bootstrap
+cp licenses/LICENSE.d3 %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.d3
+cp licenses/LICENSE.dagre %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.dagre
+cp licenses/LICENSE.dagre-d3 %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.dagre-d3
+cp licenses/LICENSE.ev-emitter %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.ev-emitter
+cp licenses/LICENSE.font-awesome %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.font-awesome
+cp licenses/LICENSE.graphlib %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.graphlib
+cp licenses/LICENSE.imagesloaded %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.imagesloaded
+cp licenses/LICENSE.jquery %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.jquery
+cp licenses/LICENSE.moment %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.moment
+cp licenses/LICENSE.moment-duration-format %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.moment-duration-format
+cp licenses/LICENSE.qtip2 %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.qtip2
+cp licenses/LICENSE.split %{buildroot}/usr/share/package-licenses/apache-flink/licenses_LICENSE.split
 %make_install ||:
 ## install_append content
 rm -rf %{buildroot}
