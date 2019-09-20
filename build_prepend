@@ -1,2 +1,0 @@
-mkdir -p %{buildroot}
-cp -r /usr/share/apache-flink/.m2 %{buildroot}/.m2

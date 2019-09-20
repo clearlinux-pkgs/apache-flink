@@ -1,5 +1,5 @@
 PKG_NAME := apache-flink
-URL = http://github.com/apache/flink/archive/release-1.7.2.tar.gz
+URL = https://github.com/apache/flink/archive/release-1.8.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common

@@ -1,1 +1,1 @@
-|| /usr/bin/mvn package -o -Pnative -Pdist -DskipTests -Dtar -Dmaven.repo.local=%{buildroot}/.m2/repository
+-o -Pnative -Pdist -DskipTests -Dtar -Dscala-2.12
