@@ -383,7 +383,6 @@ mvn-mockito
 mvn-rhino
 mvn-xmlunit
 mvn-xmlunit-core
-# new created packages
 mvn-lucene-solr
 mvn-spatial4j
 mvn-jackson-dataformat-smile
