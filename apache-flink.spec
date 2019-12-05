@@ -4,7 +4,7 @@
 #
 Name     : apache-flink
 Version  : 1.8.1
-Release  : 5
+Release  : 6
 URL      : https://github.com/apache/flink/archive/release-1.8.1.tar.gz
 Source0  : https://github.com/apache/flink/archive/release-1.8.1.tar.gz
 Summary  : No detailed summary available
